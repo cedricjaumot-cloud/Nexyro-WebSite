@@ -93,6 +93,14 @@
   }
   .obj-bridge strong{color:#fff;}
 
+  /* ---------- Encart outils ---------- */
+  .tools-teaser{
+    display:flex;align-items:center;justify-content:space-between;gap:30px;flex-wrap:wrap;
+    background:var(--ambre-pale);border-radius:6px;padding:36px 40px;
+  }
+  .tools-teaser h3{font-size:20px;font-weight:800;color:var(--nuit);margin:0 0 8px;}
+  .tools-teaser p{font-size:14px;color:var(--acier);margin:0;max-width:52ch;}
+
   /* ---------- Section shared ---------- */
   section{padding:100px 0;}
   .section-eyebrow{
@@ -328,7 +336,7 @@
     </div>
     <div class="opp-card">
       <div class="opp-img">
-        <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1000&q=70" alt="Appartement 2 chambres à Bruxelles" loading="lazy">
+        <img src="https://images.pexels.com/photos/28295552/pexels-photo-28295552.jpeg?auto=compress&cs=tinysrgb&w=1000" alt="Appartement 2 chambres à Bruxelles" loading="lazy">
         <span class="opp-badge">Investment Opportunity</span>
       </div>
       <div class="opp-body">
@@ -448,8 +456,13 @@
 
 <section id="outils">
   <div class="wrap">
-    <div class="obj-bridge" style="background:var(--ambre-pale);border-left-color:var(--ambre);color:var(--acier);">
-      <strong style="color:var(--nuit);">Nos outils d'analyse</strong> (calculateur de rendement, simulations selon le mode de financement) sont réservés aux clients NEXYRO et EXYRO, sur un espace sécurisé distinct de ce site. Ils ne sont pas accessibles au grand public.
+    <div class="tools-teaser">
+      <div>
+        <span class="section-eyebrow" style="margin-bottom:8px;">Nos outils</span>
+        <h3>Nos simulateurs</h3>
+        <p>Calculateur de rendement, simulations de financement et plus encore, pour objectiver votre décision au-delà du feeling.</p>
+      </div>
+      <a href="outils.html" class="btn btn-primary" style="white-space:nowrap;">Découvrir nos simulateurs</a>
     </div>
   </div>
 </section>
