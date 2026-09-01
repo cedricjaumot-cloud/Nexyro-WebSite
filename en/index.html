@@ -93,8 +93,24 @@
   }
   .obj-bridge strong{color:#fff;}
 
+  /* ---------- Encart outils ---------- */
+  .tools-teaser{
+    display:flex;align-items:center;justify-content:space-between;gap:30px;flex-wrap:wrap;
+    background:var(--ambre-pale);border-radius:6px;padding:36px 40px;
+  }
+  .tools-teaser h3{font-size:20px;font-weight:800;color:var(--nuit);margin:0 0 8px;}
+  .tools-teaser p{font-size:14px;color:var(--acier);margin:0;max-width:52ch;}
+
   /* ---------- Section shared ---------- */
   section{padding:100px 0;}
+
+  /* ---------- X watermark ambre (signature de marque, sections claires) ---------- */
+  .x-watermark{
+    position:absolute;pointer-events:none;z-index:-1;
+    right:-200px;bottom:-200px;width:560px;height:560px;opacity:1;
+  }
+  .x-watermark line{stroke:var(--ambre);stroke-width:2.5;stroke-linecap:round;opacity:.12;}
+  #filter, #method, #resultats{position:relative;overflow:hidden;z-index:0;}
   .section-eyebrow{
     font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--ambre);
     font-weight:700;margin-bottom:16px;display:block;
@@ -275,6 +291,10 @@
 </section>
 
 <section id="filter">
+  <svg class="x-watermark" viewBox="0 0 340 340" xmlns="http://www.w3.org/2000/svg">
+    <line x1="30" y1="30" x2="310" y2="310"/>
+    <line x1="310" y1="30" x2="30" y2="310"/>
+  </svg>
   <div class="wrap">
     <div class="section-head">
       <span class="section-eyebrow">Our analysis method</span>
@@ -363,6 +383,10 @@
 </section>
 
 <section id="method">
+  <svg class="x-watermark" viewBox="0 0 340 340" xmlns="http://www.w3.org/2000/svg">
+    <line x1="30" y1="30" x2="310" y2="310"/>
+    <line x1="310" y1="30" x2="30" y2="310"/>
+  </svg>
   <div class="wrap">
     <div class="section-head">
       <span class="section-eyebrow">Our method</span>
@@ -400,6 +424,10 @@
 </section>
 
 <section id="resultats">
+  <svg class="x-watermark" viewBox="0 0 340 340" xmlns="http://www.w3.org/2000/svg">
+    <line x1="30" y1="30" x2="310" y2="310"/>
+    <line x1="310" y1="30" x2="30" y2="310"/>
+  </svg>
   <div class="wrap">
     <div class="section-head">
       <span class="section-eyebrow">Example result</span>
@@ -448,8 +476,13 @@
 
 <section id="tools">
   <div class="wrap">
-    <div class="obj-bridge" style="background:var(--ambre-pale);border-left-color:var(--ambre);color:var(--acier);">
-      <strong style="color:var(--nuit);">Our analysis tools</strong> (yield calculator, financing-mode simulations) are reserved for NEXYRO and EXYRO clients, on a secure area separate from this site. They are not available to the general public.
+    <div class="tools-teaser">
+      <div>
+        <span class="section-eyebrow" style="margin-bottom:8px;">Our tools</span>
+        <h3>Our simulators</h3>
+        <p>Yield calculator, financing simulations and more, to objectify your decision beyond gut feeling.</p>
+      </div>
+      <a href="tools.html" class="btn btn-primary" style="white-space:nowrap;">Discover our simulators</a>
     </div>
   </div>
 </section>

@@ -103,6 +103,14 @@
 
   /* ---------- Section shared ---------- */
   section{padding:100px 0;}
+
+  /* ---------- X watermark ambre (signature de marque, sections claires) ---------- */
+  .x-watermark{
+    position:absolute;pointer-events:none;z-index:-1;
+    right:-200px;bottom:-200px;width:560px;height:560px;opacity:1;
+  }
+  .x-watermark line{stroke:var(--ambre);stroke-width:2.5;stroke-linecap:round;opacity:.12;}
+  #filtre, #methode, #resultats{position:relative;overflow:hidden;z-index:0;}
   .section-eyebrow{
     font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--ambre);
     font-weight:700;margin-bottom:16px;display:block;
@@ -283,6 +291,10 @@
 </section>
 
 <section id="filtre">
+  <svg class="x-watermark" viewBox="0 0 340 340" xmlns="http://www.w3.org/2000/svg">
+    <line x1="30" y1="30" x2="310" y2="310"/>
+    <line x1="310" y1="30" x2="30" y2="310"/>
+  </svg>
   <div class="wrap">
     <div class="section-head">
       <span class="section-eyebrow">Notre méthode d'analyse</span>
@@ -371,6 +383,10 @@
 </section>
 
 <section id="methode">
+  <svg class="x-watermark" viewBox="0 0 340 340" xmlns="http://www.w3.org/2000/svg">
+    <line x1="30" y1="30" x2="310" y2="310"/>
+    <line x1="310" y1="30" x2="30" y2="310"/>
+  </svg>
   <div class="wrap">
     <div class="section-head">
       <span class="section-eyebrow">Notre méthode</span>
@@ -408,6 +424,10 @@
 </section>
 
 <section id="resultats">
+  <svg class="x-watermark" viewBox="0 0 340 340" xmlns="http://www.w3.org/2000/svg">
+    <line x1="30" y1="30" x2="310" y2="310"/>
+    <line x1="310" y1="30" x2="30" y2="310"/>
+  </svg>
   <div class="wrap">
     <div class="section-head">
       <span class="section-eyebrow">Exemple de résultat</span>

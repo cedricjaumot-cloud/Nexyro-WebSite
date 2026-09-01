@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Onze simulatoren - NEXYRO</title>
+<meta name="description" content="Rendementscalculator, financieringssimulaties en beslissingsondersteunende tools voor uw vastgoedinvestering.">
+<link rel="icon" href="../assets/NEXYRO_favicon_dark_32.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --nuit:#1A1A2E;
+    --acier:#3E5068;
+    --ambre:#D97706;
+    --ambre-pale:#FEF3C7;
+    --offwhite:#F7F8FA;
+    --white:#FFFFFF;
+    --card-dark:#252C42;
+    --text-light:#BFC7D1;
+    --text-muted:#8B96A4;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;background:var(--offwhite);color:var(--nuit);
+    font-family:'Inter',Calibri,'Segoe UI',sans-serif;line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{font-family:'Montserrat',Arial,sans-serif;margin:0;}
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 32px;}
+  img{max-width:100%;display:block;}
+
+  header{background:var(--nuit);padding:0;}
+  nav.wrap{display:flex;align-items:center;justify-content:space-between;height:80px;}
+  .logo-img{height:32px;width:auto;display:block;}
+  .back-link{font-size:13px;font-weight:600;color:var(--text-light);}
+  .back-link:hover{color:#fff;}
+
+  .page-head{background:var(--nuit);color:#fff;padding:56px 0 70px;}
+  .page-head .eyebrow{
+    font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--ambre);font-weight:700;
+    margin-bottom:16px;display:block;
+  }
+  .page-head h1{font-size:clamp(30px,4vw,42px);font-weight:800;max-width:20ch;}
+  .page-head p{color:var(--text-light);font-size:15.5px;margin-top:16px;max-width:60ch;}
+
+  main{padding:70px 0 100px;}
+  .tools-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  .tool-card{
+    background:#fff;border:1px solid rgba(26,26,46,.08);border-radius:8px;padding:30px 26px;
+    display:flex;flex-direction:column;gap:14px;transition:border-color .15s, box-shadow .15s;
+  }
+  .tool-card.available{cursor:pointer;}
+  .tool-card.available:hover{border-color:var(--ambre);box-shadow:0 10px 26px rgba(26,26,46,.06);}
+  .tool-num{font-family:'Montserrat',sans-serif;font-weight:800;font-size:12px;color:var(--ambre);letter-spacing:.08em;}
+  .tool-card h3{font-size:16px;font-weight:800;color:var(--nuit);}
+  .tool-card p{font-size:13.5px;color:var(--acier);margin:0;flex:1;}
+  .tool-status{
+    display:inline-flex;align-self:flex-start;align-items:center;gap:6px;font-size:11.5px;font-weight:700;
+    letter-spacing:.03em;text-transform:uppercase;padding:6px 12px;border-radius:999px;
+  }
+  .tool-status.ready{background:rgba(217,119,6,.12);color:var(--ambre);}
+  .tool-status.soon{background:rgba(62,80,104,.1);color:var(--acier);}
+
+  /* ---------- Calculateur ---------- */
+  .calc-section{background:var(--nuit);color:#fff;border-radius:10px;margin-top:70px;overflow:hidden;}
+  .calc-head{padding:40px 40px 0;}
+  .calc-head .eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--ambre);font-weight:700;margin-bottom:12px;display:block;}
+  .calc-head h2{font-size:26px;font-weight:800;}
+  .calc-head p{color:var(--text-light);font-size:14.5px;margin-top:12px;max-width:60ch;}
+  .calc-shell{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:34px;}
+  .calc-form{padding:0 40px 40px;}
+  .calc-field{margin-bottom:18px;}
+  .calc-field label{display:block;font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px;}
+  .calc-field input{
+    width:100%;background:var(--card-dark);border:1px solid rgba(255,255,255,.12);border-radius:2px;
+    padding:12px 14px;font-size:15px;color:#fff;font-family:inherit;outline:none;
+  }
+  .calc-field input:focus{border-color:var(--ambre);}
+  .calc-toggle{display:flex;gap:8px;}
+  .calc-toggle-btn{
+    flex:1;background:var(--card-dark);border:1px solid rgba(255,255,255,.12);border-radius:2px;
+    padding:11px 10px;font-size:13px;font-weight:600;color:var(--text-muted);cursor:pointer;font-family:inherit;
+    transition:border-color .15s, color .15s, background .15s;
+  }
+  .calc-toggle-btn.active{background:var(--ambre);border-color:var(--ambre);color:#1A1A2E;font-weight:700;}
+  .calc-toggle-btn:hover:not(.active){border-color:var(--ambre);color:#fff;}
+  .calc-result{background:var(--card-dark);padding:40px;display:flex;flex-direction:column;justify-content:center;}
+  .calc-result-item{margin-bottom:22px;}
+  .calc-result-item:last-child{margin-bottom:0;}
+  .calc-result-item .lbl{font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px;}
+  .calc-result-item .val{font-family:'Montserrat',sans-serif;font-weight:800;font-size:28px;color:var(--ambre);}
+  .calc-result-item .val.secondary{color:#fff;font-size:21px;}
+  .calc-disclaimer{font-size:11px;color:var(--text-muted);margin-top:10px;font-style:italic;}
+
+  footer{background:var(--nuit);padding:36px 0;color:var(--text-muted);text-align:center;font-size:12px;border-top:1px solid rgba(255,255,255,.06);}
+
+  @media (max-width:900px){
+    .tools-grid{grid-template-columns:1fr;}
+    .calc-shell{grid-template-columns:1fr;}
+    .calc-form{padding:0 24px 30px;}
+    .calc-head{padding:30px 24px 0;}
+    .calc-result{padding:30px 24px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <a href="index.html" aria-label="NEXYRO - home">
+      <img src="../assets/NEXYRO_logo_dark.svg" alt="NEXYRO" class="logo-img">
+    </a>
+    <a href="index.html" class="back-link">← Terug naar de site</a>
+  </nav>
+</header>
+
+<div class="page-head">
+  <div class="wrap">
+    <span class="eyebrow">Tools</span>
+    <h1>Onze simulatoren</h1>
+    <p>Tools om uw beslissing te objectiveren: rendement, financiering, kapitaal, cashflow. Stap voor stap opgebouwd, te beginnen met de rendementscalculator.</p>
+  </div>
+</div>
+
+<main>
+  <div class="wrap">
+    <div class="tools-grid">
+      <a href="#rendementscalculator" class="tool-card available">
+        <div class="tool-num">01</div>
+        <h3>Rendementscalculator</h3>
+        <p>Bruto rendement, netto rendement, en impact van het financieringstype (cash of krediet) op uw cashflow.</p>
+        <span class="tool-status ready">Beschikbaar</span>
+      </a>
+      <div class="tool-card">
+        <div class="tool-num">02</div>
+        <h3>Financieringssimulator</h3>
+        <p>Vergelijk verschillende kredietscenario's: looptijd, rentevoet, inbreng, om de structuur te vinden die uw plan dient.</p>
+        <span class="tool-status soon">Binnenkort beschikbaar</span>
+      </div>
+      <div class="tool-card">
+        <div class="tool-num">03</div>
+        <h3>Kapitaaldoelsimulator</h3>
+        <p>Hoeveel investeren, en over welke termijn, om een streefkapitaal op een bepaald moment te bereiken.</p>
+        <span class="tool-status soon">Binnenkort beschikbaar</span>
+      </div>
+      <div class="tool-card">
+        <div class="tool-num">04</div>
+        <h3>Cashflowsimulator</h3>
+        <p>Projecteer uw netto maandelijkse huurinkomen, vandaag en op verschillende horizons.</p>
+        <span class="tool-status soon">Binnenkort beschikbaar</span>
+      </div>
+      <div class="tool-card">
+        <div class="tool-num">05</div>
+        <h3>Fiscale simulator</h3>
+        <p>Een eerste overzicht van de fiscale impact van uw investering, afhankelijk van uw situatie.</p>
+        <span class="tool-status soon">Binnenkort beschikbaar</span>
+      </div>
+      <div class="tool-card">
+        <div class="tool-num">06</div>
+        <h3>Overdrachtssimulator</h3>
+        <p>Schat de impact van een overdracht van vastgoedvermogen doorheen de tijd.</p>
+        <span class="tool-status soon">Binnenkort beschikbaar</span>
+      </div>
+    </div>
+
+    <section class="calc-section" id="rendementscalculator">
+      <div class="calc-head">
+        <span class="eyebrow">Simulator 01</span>
+        <h2>Is uw pand echt rendabel?</h2>
+        <p>Voer de cijfers van een pand in en krijg het werkelijke rendement in enkele seconden. Het financieringstype verandert het resultaat: cash betalen of lenen levert nooit hetzelfde rendement op.</p>
+      </div>
+      <div class="calc-shell">
+        <div class="calc-form">
+          <div class="calc-field">
+            <label for="calcPrix">Aankoopprijs (€)</label>
+            <input type="number" id="calcPrix" value="285000" min="0">
+          </div>
+          <div class="calc-field">
+            <label for="calcFrais">Aankoopkosten (€)</label>
+            <input type="number" id="calcFrais" value="35000" min="0">
+          </div>
+          <div class="calc-field">
+            <label for="calcLoyer">Maandelijkse huur (€)</label>
+            <input type="number" id="calcLoyer" value="1500" min="0">
+          </div>
+          <div class="calc-field">
+            <label for="calcCharges">Niet-recupereerbare jaarlijkse kosten (€)</label>
+            <input type="number" id="calcCharges" value="1200" min="0">
+          </div>
+          <div class="calc-field">
+            <label>Financieringstype</label>
+            <div class="calc-toggle">
+              <button type="button" class="calc-toggle-btn active" id="modeCash">Cash</button>
+              <button type="button" class="calc-toggle-btn" id="modeCredit">Hypothecair krediet</button>
+            </div>
+          </div>
+          <div id="creditFields" style="display:none;">
+            <div class="calc-field">
+              <label for="calcApport">Eigen inbreng (€)</label>
+              <input type="number" id="calcApport" value="100000" min="0">
+            </div>
+            <div class="calc-field">
+              <label for="calcTaux">Jaarlijkse rentevoet (%)</label>
+              <input type="number" id="calcTaux" value="3.2" min="0" step="0.1">
+            </div>
+            <div class="calc-field">
+              <label for="calcDuree">Looptijd van de lening (jaren)</label>
+              <input type="number" id="calcDuree" value="25" min="1">
+            </div>
+          </div>
+        </div>
+        <div class="calc-result">
+          <div class="calc-result-item">
+            <div class="lbl">Bruto rendement</div>
+            <div class="val" id="resBrut">6,32%</div>
+          </div>
+          <div class="calc-result-item">
+            <div class="lbl" id="resNetLabel">Netto rendement</div>
+            <div class="val secondary" id="resNet">4,80%</div>
+          </div>
+          <div class="calc-result-item" id="mensualiteRow" style="display:none;">
+            <div class="lbl">Geschatte maandelijkse aflossing</div>
+            <div class="val secondary" id="resMensualite">- 1 200 €</div>
+          </div>
+          <div class="calc-result-item">
+            <div class="lbl">Geschatte maandelijkse cashflow</div>
+            <div class="val secondary" id="resCashflow">+ 1 400 €</div>
+            <div class="calc-disclaimer">Indicatieve schatting, exclusief onroerende voorheffing en persoonlijke fiscaliteit. Vervangt geen volledige NEXYRO-analyse.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">NEXYRO - Rue Emile Francqui 6, 1435 Mont-Saint-Guibert - invest@nexyro.be</div>
+</footer>
+
+<script>
+  const creditFieldsBlock = document.getElementById('creditFields');
+  const modeCashBtn = document.getElementById('modeCash');
+  const modeCreditBtn = document.getElementById('modeCredit');
+  const mensualiteRow = document.getElementById('mensualiteRow');
+  const resNetLabel = document.getElementById('resNetLabel');
+
+  const resBrut = document.getElementById('resBrut');
+  const resNet = document.getElementById('resNet');
+  const resMensualite = document.getElementById('resMensualite');
+  const resCashflow = document.getElementById('resCashflow');
+
+  let mode = 'cash';
+
+  function formatPct(n){ return n.toLocaleString('nl-BE', {minimumFractionDigits:2, maximumFractionDigits:2}) + '%'; }
+  function formatEur(n){
+    const sign = n >= 0 ? '+ ' : '- ';
+    return sign + Math.abs(Math.round(n)).toLocaleString('fr-BE') + ' €';
+  }
+
+  function setMode(newMode){
+    mode = newMode;
+    modeCashBtn.classList.toggle('active', mode === 'cash');
+    modeCreditBtn.classList.toggle('active', mode === 'credit');
+    creditFieldsBlock.style.display = mode === 'credit' ? 'block' : 'none';
+    mensualiteRow.style.display = mode === 'credit' ? 'block' : 'none';
+    resNetLabel.textContent = mode === 'credit' ? 'Rendement sur fonds propres' : 'Rendement net';
+    computeYield();
+  }
+
+  modeCashBtn.addEventListener('click', () => setMode('cash'));
+  modeCreditBtn.addEventListener('click', () => setMode('credit'));
+
+  function monthlyPayment(principal, annualRatePct, years){
+    const r = (annualRatePct / 100) / 12;
+    const n = years * 12;
+    if (r === 0) return principal / n;
+    return principal * r / (1 - Math.pow(1 + r, -n));
+  }
+
+  function computeYield(){
+    const prix = parseFloat(document.getElementById('calcPrix').value) || 0;
+    const frais = parseFloat(document.getElementById('calcFrais').value) || 0;
+    const loyerMensuel = parseFloat(document.getElementById('calcLoyer').value) || 0;
+    const chargesAn = parseFloat(document.getElementById('calcCharges').value) || 0;
+
+    const investTotal = prix + frais;
+    const loyerAnnuel = loyerMensuel * 12;
+
+    if (investTotal <= 0) {
+      resBrut.textContent = '-';
+      resNet.textContent = '-';
+      resCashflow.textContent = '-';
+      return;
+    }
+
+    const brut = (loyerAnnuel / investTotal) * 100;
+    resBrut.textContent = formatPct(brut);
+
+    if (mode === 'cash') {
+      const net = ((loyerAnnuel - chargesAn) / investTotal) * 100;
+      const cashflowMensuel = (loyerAnnuel - chargesAn) / 12;
+      resNet.textContent = formatPct(net);
+      resCashflow.textContent = formatEur(cashflowMensuel);
+      return;
+    }
+
+    const apport = parseFloat(document.getElementById('calcApport').value) || 0;
+    const taux = parseFloat(document.getElementById('calcTaux').value) || 0;
+    const duree = parseFloat(document.getElementById('calcDuree').value) || 1;
+    const montantEmprunte = Math.max(investTotal - apport, 0);
+    const mensualite = montantEmprunte > 0 ? monthlyPayment(montantEmprunte, taux, duree) : 0;
+    const creditAnnuel = mensualite * 12;
+
+    const cashflowMensuel = (loyerAnnuel - chargesAn) / 12 - mensualite;
+    const revenuNetApresCredit = loyerAnnuel - chargesAn - creditAnnuel;
+    const rendementFondsPropres = apport > 0 ? (revenuNetApresCredit / apport) * 100 : 0;
+
+    resNet.textContent = formatPct(rendementFondsPropres);
+    resMensualite.textContent = '- ' + Math.round(mensualite).toLocaleString('fr-BE') + ' €';
+    resCashflow.textContent = formatEur(cashflowMensuel);
+  }
+
+  const baseFields = ['calcPrix', 'calcFrais', 'calcLoyer', 'calcCharges'].map(id => document.getElementById(id));
+  const creditInputs = ['calcApport', 'calcTaux', 'calcDuree'].map(id => document.getElementById(id));
+  baseFields.forEach(f => f.addEventListener('input', computeYield));
+  creditInputs.forEach(f => f.addEventListener('input', computeYield));
+  computeYield();
+</script>
+</body>
+</html>
