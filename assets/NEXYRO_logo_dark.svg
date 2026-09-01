@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="320" height="80" viewBox="0 0 320 80"
+     xmlns="http://www.w3.org/2000/svg" version="1.1">
+  <!-- NEXYRO X symbol -->
+  <polygon points="8.169,10.000 11.831,10.000 53.831,70.000 50.169,70.000" fill="#FFFFFF"/>
+  <polygon points="48.033,10.000 55.967,10.000 13.967,70.000 6.033,70.000" fill="#D97706"/>
+  <!-- Speed lines -->
+  <line x1="59.559999999999995" y1="25.0" x2="75.52" y2="25.0" stroke="#D97706" stroke-width="1.8" stroke-linecap="round" opacity="0.6"/>
+  <line x1="59.559999999999995" y1="38.2" x2="80.56" y2="38.2" stroke="#3E5068" stroke-width="1.8" stroke-linecap="round" opacity="0.35"/>
+  <line x1="59.559999999999995" y1="50.800000000000004" x2="75.52" y2="50.800000000000004" stroke="#D97706" stroke-width="1.8" stroke-linecap="round" opacity="0.6"/>  <!-- Wordmark -->
+  <text x="82" y="42" font-family="Arial, Helvetica, sans-serif" font-weight="700"
+        font-size="22" fill="#FFFFFF" letter-spacing="4">NEXYRO</text>
+  <text x="82" y="56" font-family="Arial, Helvetica, sans-serif" font-weight="400"
+        font-size="7" fill="#D97706" letter-spacing="2.5">RENTAL INVESTMENT ADVISORY</text>  <text x="82" y="72" font-family="Arial, Helvetica, sans-serif" font-style="italic"
+        font-size="6" fill="#D97706" letter-spacing="2" opacity="0.55">INVEST. RENT. PERFORM.</text>
+</svg>

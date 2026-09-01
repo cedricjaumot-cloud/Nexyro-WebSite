@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="120" height="120" viewBox="0 0 120 120"
+     xmlns="http://www.w3.org/2000/svg" version="1.1">
+<rect width="120" height="120" fill="#1A1A2E"/>
+  <!-- NEXYRO X symbol -->
+  <polygon points="12.582,14.400 16.218,14.400 78.618,105.600 74.982,105.600" fill="#FFFFFF"/>
+  <polygon points="72.862,14.400 80.738,14.400 18.338,105.600 10.462,105.600" fill="#D97706"/>
+  <!-- Speed lines -->
+  <line x1="88.03200000000001" y1="37.2" x2="111.74400000000001" y2="37.2" stroke="#D97706" stroke-width="1.8" stroke-linecap="round" opacity="0.6"/>
+  <line x1="88.03200000000001" y1="57.263999999999996" x2="119.23200000000001" y2="57.263999999999996" stroke="#3E5068" stroke-width="1.8" stroke-linecap="round" opacity="0.35"/>
+  <line x1="88.03200000000001" y1="76.416" x2="111.74400000000001" y2="76.416" stroke="#D97706" stroke-width="1.8" stroke-linecap="round" opacity="0.6"/>
+</svg>
