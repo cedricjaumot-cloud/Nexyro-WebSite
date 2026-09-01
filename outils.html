@@ -20,6 +20,7 @@
     --card-dark:#252C42;
     --text-light:#BFC7D1;
     --text-muted:#8B96A4;
+    --acier-vif:#5B7FA6;   /* acier éclairci et plus saturé, pour distinguer les séries dans les graphiques */
   }
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
@@ -96,6 +97,59 @@
   .calc-result-item .val.secondary{color:#fff;font-size:21px;}
   .calc-disclaimer{font-size:11px;color:var(--text-muted);margin-top:10px;font-style:italic;}
 
+  /* ---------- Comparateur de financement ---------- */
+  .fin-section{background:var(--nuit);color:#fff;border-radius:10px;margin-top:40px;padding:44px 40px 50px;}
+  .fin-head .eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--ambre);font-weight:700;margin-bottom:12px;display:block;}
+  .fin-head h2{font-size:26px;font-weight:800;}
+  .fin-head p{color:var(--text-light);font-size:14.5px;margin-top:12px;max-width:70ch;}
+  .fin-note{
+    background:rgba(217,119,6,.1);border-left:3px solid var(--ambre);border-radius:4px;
+    padding:14px 18px;font-size:12.5px;color:var(--text-light);margin-top:18px;
+  }
+  .fin-note strong{color:#fff;}
+
+  .fin-params{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:34px;
+    background:var(--card-dark);border-radius:8px;overflow:hidden;
+  }
+  .fin-group{padding:24px 26px;border-left:1px solid rgba(255,255,255,.07);}
+  .fin-group:first-child{border-left:0;}
+  .fin-group-title{
+    font-family:'Montserrat',sans-serif;font-size:11px;font-weight:800;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--ambre);margin-bottom:18px;
+  }
+  .fin-field{margin-bottom:18px;}
+  .fin-field:last-child{margin-bottom:0;}
+  .fin-field label{display:block;font-size:11px;letter-spacing:.03em;text-transform:uppercase;color:var(--text-muted);margin-bottom:7px;}
+  .fin-field input{
+    width:100%;background:var(--nuit);border:1px solid rgba(255,255,255,.12);border-radius:2px;
+    padding:10px 12px;font-size:14px;color:#fff;font-family:inherit;outline:none;
+  }
+  .fin-field input:focus{border-color:var(--ambre);}
+
+  .fin-table-wrap{margin-top:36px;overflow-x:auto;}
+  .fin-table{width:100%;border-collapse:collapse;min-width:640px;}
+  .fin-table th{
+    text-align:left;font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--text-muted);
+    padding:10px 16px;border-bottom:1px solid rgba(255,255,255,.1);
+  }
+  .fin-table th.col-a{color:#fff;}
+  .fin-table th.col-b{color:var(--acier-vif);}
+  .fin-table th.col-c{color:var(--ambre);}
+  .fin-table td{padding:12px 16px;font-size:13.5px;border-bottom:1px solid rgba(255,255,255,.06);}
+  .fin-table td.label{color:var(--text-muted);}
+  .fin-table td.val{font-family:'Montserrat',sans-serif;font-weight:700;color:#fff;}
+  .fin-table tr.highlight td{color:var(--ambre);font-weight:700;}
+
+  .fin-charts{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:44px;}
+  .fin-chart-card{background:var(--card-dark);border-radius:8px;padding:24px;}
+  .fin-chart-card h4{font-size:14px;font-weight:800;color:#fff;margin-bottom:4px;}
+  .fin-chart-card .sub{font-size:12px;color:var(--text-muted);margin-bottom:18px;}
+  .fin-legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:14px;font-size:11.5px;color:var(--text-light);}
+  .fin-legend span{display:inline-flex;align-items:center;gap:6px;}
+  .fin-legend i{width:14px;height:3px;display:inline-block;border-radius:2px;}
+  .fin-disclaimer{font-size:11px;color:var(--text-muted);font-style:italic;margin-top:24px;}
+
   footer{background:var(--nuit);padding:36px 0;color:var(--text-muted);text-align:center;font-size:12px;border-top:1px solid rgba(255,255,255,.06);}
 
   @media (max-width:900px){
@@ -104,8 +158,14 @@
     .calc-form{padding:0 24px 30px;}
     .calc-head{padding:30px 24px 0;}
     .calc-result{padding:30px 24px;}
+    .fin-params{grid-template-columns:1fr;}
+    .fin-group{border-left:0;border-top:1px solid rgba(255,255,255,.07);}
+    .fin-group:first-child{border-top:0;}
+    .fin-charts{grid-template-columns:1fr;}
+    .fin-section{padding:32px 22px 40px;}
   }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
 </head>
 <body>
 
@@ -135,12 +195,12 @@
         <p>Rendement brut, rendement net, et impact du mode de financement (cash ou crédit) sur votre cash-flow.</p>
         <span class="tool-status ready">Disponible</span>
       </a>
-      <div class="tool-card">
+      <a href="#financement" class="tool-card available">
         <div class="tool-num">02</div>
         <h3>Simulateur de financement</h3>
-        <p>Comparez plusieurs scénarios de crédit : durée, taux, apport, pour trouver la structure qui sert votre plan.</p>
-        <span class="tool-status soon">Bientôt disponible</span>
-      </div>
+        <p>Comparez cash, crédit à mensualité constante et crédit bullet : quelle structure fait le plus de patrimoine avec le même apport ?</p>
+        <span class="tool-status ready">Disponible</span>
+      </a>
       <div class="tool-card">
         <div class="tool-num">03</div>
         <h3>Simulateur objectif capital</h3>
@@ -166,6 +226,94 @@
         <span class="tool-status soon">Bientôt disponible</span>
       </div>
     </div>
+
+    <section class="fin-section" id="financement">
+      <div class="fin-head">
+        <span class="eyebrow">Simulateur 02</span>
+        <h2>Cash, crédit à mensualité constante, ou crédit bullet : quelle structure construit le plus de patrimoine ?</h2>
+        <p>Avec le même apport total, vous pouvez payer un bien cash, ou lever du crédit pour en financer deux plus grands. Ce simulateur compare les trois approches sur la durée.</p>
+        <div class="fin-note">
+          <strong>Hypothèses par défaut, à ajuster :</strong> rendement locatif brut visé (5,5%), frais d'acquisition (12,5%, base droits d'enregistrement Wallonie/Bruxelles pour un investissement), valorisation du bien alignée sur le taux d'inflation faute de taux distinct communiqué. Charges, vacance locative et fiscalité personnelle ne sont pas intégrées dans cette première version.
+        </div>
+      </div>
+
+      <div class="fin-params">
+        <div class="fin-group">
+          <div class="fin-group-title">Investissement</div>
+          <div class="fin-field">
+            <label for="finMontant">Montant de référence (€, hors frais)</label>
+            <input type="number" id="finMontant" value="200000" min="0" step="1000">
+          </div>
+          <div class="fin-field">
+            <label for="finRendement">Rendement locatif brut visé (%)</label>
+            <input type="number" id="finRendement" value="5.5" min="0" step="0.1">
+          </div>
+          <div class="fin-field">
+            <label for="finDuree">Durée de comparaison (années)</label>
+            <input type="number" id="finDuree" value="25" min="1" max="30">
+          </div>
+        </div>
+        <div class="fin-group">
+          <div class="fin-group-title">Financement</div>
+          <div class="fin-field">
+            <label for="finFrais">Frais d'acquisition (%)</label>
+            <input type="number" id="finFrais" value="12.5" min="0" step="0.1">
+          </div>
+          <div class="fin-field">
+            <label for="finTauxAmort">Taux crédit mensualité constante (%)</label>
+            <input type="number" id="finTauxAmort" value="3.5" min="0" step="0.1">
+          </div>
+          <div class="fin-field">
+            <label for="finTauxBullet">Taux crédit bullet (%)</label>
+            <input type="number" id="finTauxBullet" value="4" min="0" step="0.1">
+          </div>
+        </div>
+        <div class="fin-group">
+          <div class="fin-group-title">Taux économiques</div>
+          <div class="fin-field">
+            <label for="finIndexation">Indexation des loyers (%)</label>
+            <input type="number" id="finIndexation" value="3.2" min="0" step="0.1">
+          </div>
+          <div class="fin-field">
+            <label for="finInflation">Inflation / valorisation du bien (%)</label>
+            <input type="number" id="finInflation" value="2.5" min="0" step="0.1">
+          </div>
+          <div class="fin-field">
+            <label for="finEpargne">Rendement de l'épargne (%)</label>
+            <input type="number" id="finEpargne" value="6" min="0" step="0.1">
+          </div>
+        </div>
+      </div>
+
+      <div class="fin-table-wrap">
+        <table class="fin-table">
+          <thead>
+            <tr>
+              <th>Indicateur</th>
+              <th class="col-a">Cash (1 bien)</th>
+              <th class="col-b">Crédit constant (2 biens, x1,5)</th>
+              <th class="col-c">Crédit bullet (2 biens, x2)</th>
+            </tr>
+          </thead>
+          <tbody id="finTableBody"></tbody>
+        </table>
+      </div>
+
+      <div class="fin-charts">
+        <div class="fin-chart-card">
+          <h4>Valeur du patrimoine et dette restante</h4>
+          <div class="sub">Trait plein = valeur du bien, pointillé = dette restante</div>
+          <canvas id="chartValeurDette" height="280"></canvas>
+        </div>
+        <div class="fin-chart-card">
+          <h4>Cash-flow mensuel et cumulé</h4>
+          <div class="sub">Trait plein = cash-flow cumulé capitalisé, pointillé = cash-flow mensuel</div>
+          <canvas id="chartCashflow" height="280"></canvas>
+        </div>
+      </div>
+
+      <p class="fin-disclaimer">Simulation indicative basée sur les hypothèses ci-dessus. Ne constitue ni un conseil financier ni un engagement contractuel. Une analyse NEXYRO tient compte de votre situation réelle.</p>
+    </section>
 
     <section class="calc-section" id="calculateur-rendement">
       <div class="calc-head">
@@ -241,6 +389,204 @@
   <div class="wrap">NEXYRO - Rue Emile Francqui 6, 1435 Mont-Saint-Guibert - invest@nexyro.be</div>
 </footer>
 
+<script>
+  // ===================== Comparateur de financement =====================
+  const finIds = ['finMontant','finRendement','finFrais','finDuree','finTauxAmort','finTauxBullet','finIndexation','finInflation','finEpargne'];
+  const finInputs = {};
+  finIds.forEach(id => finInputs[id] = document.getElementById(id));
+
+  function fmtEur0(n){ return Math.round(n).toLocaleString('fr-BE') + ' €'; }
+  function fmtEurSigned(n){
+    const sign = n >= 0 ? '+ ' : '- ';
+    return sign + Math.abs(Math.round(n)).toLocaleString('fr-BE') + ' €';
+  }
+  function fmtPct1(n){ return n.toLocaleString('fr-BE', {minimumFractionDigits:1, maximumFractionDigits:1}) + '%'; }
+
+  function monthlyAmortPayment(principal, annualRatePct, years){
+    const r = (annualRatePct/100)/12;
+    const n = years*12;
+    if (principal <= 0) return 0;
+    if (r === 0) return principal/n;
+    return principal * r / (1 - Math.pow(1+r, -n));
+  }
+
+  // Solde restant dû d'un prêt amortissable classique, après k mois de remboursement
+  function amortRemainingBalance(principal, annualRatePct, years, monthsElapsed){
+    const r = (annualRatePct/100)/12;
+    const n = years*12;
+    const k = Math.min(monthsElapsed, n);
+    if (principal <= 0) return 0;
+    if (r === 0) return Math.max(principal * (1 - k/n), 0);
+    const mensualite = monthlyAmortPayment(principal, annualRatePct, years);
+    const balance = principal * Math.pow(1+r, k) - mensualite * ((Math.pow(1+r, k) - 1) / r);
+    return Math.max(balance, 0);
+  }
+
+  function computeScenarios(){
+    const X = parseFloat(finInputs.finMontant.value) || 0;
+    const yieldRate = (parseFloat(finInputs.finRendement.value) || 0) / 100;
+    const fraisRate = (parseFloat(finInputs.finFrais.value) || 0) / 100;
+    const duree = parseInt(finInputs.finDuree.value) || 25;
+    const tauxAmort = parseFloat(finInputs.finTauxAmort.value) || 0;
+    const tauxBullet = parseFloat(finInputs.finTauxBullet.value) || 0;
+    const indexRate = (parseFloat(finInputs.finIndexation.value) || 0) / 100;
+    const inflRate = (parseFloat(finInputs.finInflation.value) || 0) / 100;
+    const saveRate = (parseFloat(finInputs.finEpargne.value) || 0) / 100;
+
+    // Apport total constant : prix + frais du scénario cash (référence)
+    const cashTotal = X * (1 + fraisRate);
+
+    function buildScenario(multiplicateur, mode){
+      const prix = X * multiplicateur;
+      const frais = prix * fraisRate;
+      const equityTowardPrice = cashTotal - frais;
+      const loan = Math.max(prix - equityTowardPrice, 0);
+      const loyerAnnuelInitial = prix * yieldRate;
+
+      let mensualite = 0;
+      if (mode === 'amort' && loan > 0) mensualite = monthlyAmortPayment(loan, tauxAmort, duree);
+      if (mode === 'bullet' && loan > 0) mensualite = loan * (tauxBullet/100) / 12;
+
+      return { prix, frais, apport: cashTotal, loan, loyerAnnuelInitial, mensualite, mode };
+    }
+
+    const scenarios = {
+      cash: buildScenario(1, 'cash'),
+      amort: buildScenario(1.5, 'amort'),
+      bullet: buildScenario(2, 'bullet'),
+    };
+
+    // Séries annuelles sur la durée choisie
+    const years = [];
+    for (let t = 0; t <= duree; t++) years.push(t);
+
+    function buildSeries(sc){
+      const valeur = [];
+      const dette = [];
+      const cfMensuel = [];
+      const cfCumule = [];
+      let cumul = 0;
+      years.forEach(t => {
+        const v = sc.prix * Math.pow(1+inflRate, t);
+        valeur.push(v);
+
+        let d = 0;
+        if (sc.mode === 'amort') d = amortRemainingBalance(sc.loan, tauxAmort, duree, t*12);
+        if (sc.mode === 'bullet') d = (t < duree) ? sc.loan : 0;
+        dette.push(d);
+
+        const loyerAn = sc.loyerAnnuelInitial * Math.pow(1+indexRate, t);
+        const cfAnnuel = loyerAn - sc.mensualite*12;
+        cfMensuel.push(cfAnnuel/12);
+
+        cumul = cumul * (1+saveRate) + cfAnnuel;
+        cfCumule.push(cumul);
+      });
+      return { valeur, dette, cfMensuel, cfCumule };
+    }
+
+    const series = {
+      cash: buildSeries(scenarios.cash),
+      amort: buildSeries(scenarios.amort),
+      bullet: buildSeries(scenarios.bullet),
+    };
+
+    return { scenarios, series, years, duree };
+  }
+
+  function renderTable(scenarios){
+    const tbody = document.getElementById('finTableBody');
+    const rows = [
+      ['Prix total des biens', s => fmtEur0(s.prix)],
+      ["Frais d'acquisition", s => fmtEur0(s.frais)],
+      ['Apport total (constant)', s => fmtEur0(s.apport)],
+      ['Financé par crédit', s => s.loan > 0 ? fmtEur0(s.loan) : '-'],
+      ['Mensualité de crédit', s => s.mensualite > 0 ? fmtEurSigned(-s.mensualite) : '-'],
+      ['Loyer annuel (année 1)', s => fmtEur0(s.loyerAnnuelInitial)],
+      ['Cash-flow mensuel (année 1)', s => fmtEurSigned(s.loyerAnnuelInitial/12 - s.mensualite)],
+    ];
+    tbody.innerHTML = rows.map(([label, fn], i) => `
+      <tr${i === rows.length-1 ? ' class="highlight"' : ''}>
+        <td class="label">${label}</td>
+        <td class="val">${fn(scenarios.cash)}</td>
+        <td class="val">${fn(scenarios.amort)}</td>
+        <td class="val">${fn(scenarios.bullet)}</td>
+      </tr>
+    `).join('');
+  }
+
+  let chartValeurDette, chartCashflow;
+  const COLORS = { cash: '#F7F8FA', amort: '#5B7FA6', bullet: '#D97706' };
+
+  function renderCharts(years, series){
+    const ctx1 = document.getElementById('chartValeurDette').getContext('2d');
+    const ctx2 = document.getElementById('chartCashflow').getContext('2d');
+
+    const commonScales = {
+      x: { ticks: { color: '#8B96A4', maxTicksLimit: 8 }, grid: { color: 'rgba(255,255,255,.06)' } },
+      y: { ticks: { color: '#8B96A4', callback: v => (v/1000) + 'k€' }, grid: { color: 'rgba(255,255,255,.06)' } }
+    };
+    const commonOptions = {
+      responsive: true,
+      interaction: { mode: 'index', intersect: false },
+      plugins: { legend: { display: false } },
+      scales: commonScales
+    };
+
+    if (chartValeurDette) chartValeurDette.destroy();
+    chartValeurDette = new Chart(ctx1, {
+      type: 'line',
+      data: {
+        labels: years,
+        datasets: [
+          { label: 'Valeur - Cash', data: series.cash.valeur, borderColor: COLORS.cash, borderWidth: 2, pointRadius: 0 },
+          { label: 'Dette - Cash', data: series.cash.dette, borderColor: COLORS.cash, borderWidth: 1.5, borderDash: [4,4], pointRadius: 0 },
+          { label: 'Valeur - Crédit constant', data: series.amort.valeur, borderColor: COLORS.amort, borderWidth: 2, pointRadius: 0 },
+          { label: 'Dette - Crédit constant', data: series.amort.dette, borderColor: COLORS.amort, borderWidth: 1.5, borderDash: [4,4], pointRadius: 0 },
+          { label: 'Valeur - Crédit bullet', data: series.bullet.valeur, borderColor: COLORS.bullet, borderWidth: 2, pointRadius: 0 },
+          { label: 'Dette - Crédit bullet', data: series.bullet.dette, borderColor: COLORS.bullet, borderWidth: 1.5, borderDash: [4,4], pointRadius: 0 },
+        ]
+      },
+      options: commonOptions
+    });
+
+    if (chartCashflow) chartCashflow.destroy();
+    chartCashflow = new Chart(ctx2, {
+      type: 'line',
+      data: {
+        labels: years,
+        datasets: [
+          { label: 'Cumulé - Cash', data: series.cash.cfCumule, borderColor: COLORS.cash, borderWidth: 2, pointRadius: 0 },
+          { label: 'Mensuel - Cash', data: series.cash.cfMensuel, borderColor: COLORS.cash, borderWidth: 1.5, borderDash: [4,4], pointRadius: 0, yAxisID: 'y1' },
+          { label: 'Cumulé - Crédit constant', data: series.amort.cfCumule, borderColor: COLORS.amort, borderWidth: 2, pointRadius: 0 },
+          { label: 'Mensuel - Crédit constant', data: series.amort.cfMensuel, borderColor: COLORS.amort, borderWidth: 1.5, borderDash: [4,4], pointRadius: 0, yAxisID: 'y1' },
+          { label: 'Cumulé - Crédit bullet', data: series.bullet.cfCumule, borderColor: COLORS.bullet, borderWidth: 2, pointRadius: 0 },
+          { label: 'Mensuel - Crédit bullet', data: series.bullet.cfMensuel, borderColor: COLORS.bullet, borderWidth: 1.5, borderDash: [4,4], pointRadius: 0, yAxisID: 'y1' },
+        ]
+      },
+      options: {
+        ...commonOptions,
+        scales: {
+          x: commonScales.x,
+          y: commonScales.y,
+          y1: { position: 'right', ticks: { color: '#8B96A4', callback: v => Math.round(v) + '€' }, grid: { display: false } }
+        }
+      }
+    });
+  }
+
+  function updateSimulator(){
+    const { scenarios, series, years } = computeScenarios();
+    renderTable(scenarios);
+    renderCharts(years, series);
+  }
+
+  if (document.getElementById('financement')) {
+    Object.values(finInputs).forEach(el => el.addEventListener('input', updateSimulator));
+    updateSimulator();
+  }
+
+</script>
 <script>
   const creditFieldsBlock = document.getElementById('creditFields');
   const modeCashBtn = document.getElementById('modeCash');
